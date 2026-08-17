@@ -1,0 +1,12 @@
+services:
+  vulnshop:
+    build: .
+    container_name: vulnshop
+    ports:
+      - "5000:5000"
+    environment:
+      DB_PATH: /app/data/vulnshop.db
+    volumes:
+      - vulnshop-data:/app/data
+volumes:
+  vulnshop-data:

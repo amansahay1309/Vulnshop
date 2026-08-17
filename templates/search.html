@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search</h1>
+<form method="GET" action="/search"><input name="q" value="{{ q }}" placeholder="Search products"><button type="submit">Search</button></form>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<!-- INTENTIONAL VULNERABILITY: reflected XSS; q is deliberately rendered with |safe. -->
+{% if q %}<h2>Results for: {{ q|safe }}</h2>{% endif %}
+{% for product in products %}
+<div class="product">
+<h3><a href="/product?id={{ product['id'] }}">{{ product["name"] }}</a></h3>
+<p>{{ product["description"] }}</p>
+<strong>${{ "%.2f"|format(product["price"]) }}</strong>
+</div>
+{% else %}<p>No products found.</p>{% endfor %}
+{% endblock %}

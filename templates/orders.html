@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Orders</h1>
+<!-- INTENTIONAL VULNERABILITY: IDOR/broken access control; user_id comes from query parameter. -->
+<p>Showing orders for user ID: {{ user_id }}</p>
+<table border="1" cellpadding="8">
+<tr><th>Order ID</th><th>User ID</th><th>Product</th><th>Quantity</th><th>Total</th></tr>
+{% for order in orders %}
+<tr><td>{{ order["id"] }}</td><td>{{ order["user_id"] }}</td><td>{{ order["product_name"] }}</td><td>{{ order["quantity"] }}</td><td>${{ "%.2f"|format(order["total"]) }}</td></tr>
+{% else %}<tr><td colspan="5">No orders found.</td></tr>{% endfor %}
+</table>
+{% endblock %}

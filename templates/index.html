@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome to vulnShop</h1>
+<p>Deliberately vulnerable e-commerce application for DAST validation.</p>
+<h2>Products</h2>
+{% for product in products %}
+<div class="product">
+    <h3><a href="/product?id={{ product['id'] }}">{{ product["name"] }}</a></h3>
+    <p>{{ product["description"] }}</p>
+    <strong>${{ "%.2f"|format(product["price"]) }}</strong>
+</div>
+{% endfor %}
+{% endblock %}
